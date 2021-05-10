@@ -1,9 +1,9 @@
 package com.dtdl.sherlock.mtsherlock.exception.handler
 
+import com.dtdl.sherlock.mtsherlock.exception.MtSherlockAuthenticationException
 import com.dtdl.sherlock.mtsherlock.exception.MtSherlockBadRequestException
 import com.dtdl.sherlock.mtsherlock.exception.MtSherlockNotFoundException
-import org.springframework.http.HttpStatus.BAD_REQUEST
-import org.springframework.http.HttpStatus.NOT_FOUND
+import org.springframework.http.HttpStatus.*
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -20,5 +20,10 @@ class GenericExceptionHandler {
     @ExceptionHandler(MtSherlockNotFoundException::class)
     fun notFound(exception: MtSherlockNotFoundException) =
         ResponseEntity(exception.message, NOT_FOUND)
+
+
+    @ExceptionHandler(MtSherlockAuthenticationException::class)
+    fun unauthorized(exception: MtSherlockAuthenticationException) =
+        ResponseEntity(exception.message, UNAUTHORIZED)
 
 }

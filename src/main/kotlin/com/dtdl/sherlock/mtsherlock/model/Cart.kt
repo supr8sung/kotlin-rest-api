@@ -8,7 +8,7 @@ data class Cart(
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long?,
 
-    @OneToOne val user: User,
+    @OneToOne val user: User?,
 
     @OneToMany val items: MutableList<Item> = mutableListOf()
 )
