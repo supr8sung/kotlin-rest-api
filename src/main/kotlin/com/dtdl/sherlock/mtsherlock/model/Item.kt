@@ -5,10 +5,10 @@ import javax.persistence.*
 
 @Entity
 @Builder
-class Item(
+data class Item(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private val id: Long?,
-    private val name: String,
+    val id: Long?,
+    val name: String,
     @OneToOne private val seller: Seller?
 )

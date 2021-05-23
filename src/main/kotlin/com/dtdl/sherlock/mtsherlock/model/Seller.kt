@@ -7,7 +7,7 @@ import javax.persistence.Id
 
 @Entity
 data class Seller(
-    @Id @GeneratedValue(strategy = GenerationType.AUTO) private val id: Long,
+    @Id @GeneratedValue(strategy = GenerationType.AUTO) private val id: Long?,
     private val address: String
 
 )

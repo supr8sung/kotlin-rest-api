@@ -7,7 +7,6 @@ import com.dtdl.sherlock.mtsherlock.model.User
 import com.dtdl.sherlock.mtsherlock.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class UserService(
@@ -37,7 +36,7 @@ class UserService(
         return userRepository.save(employee).let { UserDTO(it.id, it.name) }
     }
 
-    fun delete(id: UUID) =
+    fun delete(id: Long) =
         userRepository.deleteById(id)
 
     fun findByUserName(username: String): User? {

@@ -1,19 +1,21 @@
 package com.dtdl.sherlock.mtsherlock.model
 
-import java.util.*
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import lombok.Data
+import javax.persistence.*
 
 @Entity
-class User @JvmOverloads constructor(
+@Data
+data class User(
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: UUID? = null,
+    var id: Long? = null,
     var name: String? = null,
     var username: String? = null,
-    var password: String?=null
+    var password: String? = null,
+//    @OneToMany(mappedBy = "user")
+    @OneToMany
+    var authorities: Set<Authority> = hashSetOf()
+
 )
-//https://www.myntra.com/gateway/v2/search/men-sneakers?f=Brand%3APuma%3A%3AColor%3ABlack_36454f&plaEnabled=false&rows=50&o=0
+

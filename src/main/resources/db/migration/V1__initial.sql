@@ -1,0 +1,14 @@
+--CREATE TABLE IF NOT EXISTS `user` (
+--
+--    `id` BIGINT  PRIMARY KEY NOT NULL ,
+--    `name` varchar(255),
+--    `username` varchar(255),
+--    `password` varchar(255)
+--);
+--
+--CREATE TABLE IF NOT EXISTS `authority` (
+--
+--    `name` varchar PRIMARY Key NOT NULL,
+--    `user_id`  BIGINT NOT NULL
+--);
+--

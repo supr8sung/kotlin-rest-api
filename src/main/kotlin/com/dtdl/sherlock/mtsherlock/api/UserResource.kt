@@ -1,9 +1,9 @@
 package com.dtdl.sherlock.mtsherlock.api
 
-import com.dtdl.sherlock.mtsherlock.config.util.JwtTokenUtil
 import com.dtdl.sherlock.mtsherlock.dto.UserDTO
 import com.dtdl.sherlock.mtsherlock.model.User
-import com.dtdl.sherlock.mtsherlock.service.MyUserDetailService
+import com.dtdl.sherlock.mtsherlock.security.service.JwtUserDetailsService
+//import com.dtdl.sherlock.mtsherlock.service.MyUserDetailService
 import com.dtdl.sherlock.mtsherlock.service.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -12,16 +12,15 @@ import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.DisabledException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.web.bind.annotation.*
-import java.util.*
 
 
 @RestController
 @RequestMapping("/employees")
+//@CrossOrigin("*")
 class UserResource(
     private val userService: UserService,
     private val authenticationManager: AuthenticationManager,
-    private val jwtTokenUtil: JwtTokenUtil,
-    private val myUserDetailService: MyUserDetailService
+    private val myUserDetailService: JwtUserDetailsService
 ) {
 
     @PostMapping("/signup")
@@ -40,17 +39,9 @@ class UserResource(
 
 
     @DeleteMapping("/delete")
-    fun delete(@RequestParam id: UUID): ResponseEntity<Unit> =
+    fun delete(@RequestParam id: Long): ResponseEntity<Unit> =
         userService.delete(id).let { ResponseEntity(HttpStatus.NO_CONTENT) }
 
-    @PostMapping("/authenticate")
-    fun createAuthentication(@RequestBody userDTO: UserDTO): ResponseEntity<String> {
-        authenticate(userDTO.username, userDTO.password);
-        val userDetails = myUserDetailService.loadUserByUsername(userDTO.username);
-        val token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(token);
-
-    }
 
     private fun authenticate(username: String?, password: String?) {
         try {
@@ -61,7 +52,6 @@ class UserResource(
             throw Exception("INVALID_CREDENTIALS", e)
         }
     }
-
 
 
 }
